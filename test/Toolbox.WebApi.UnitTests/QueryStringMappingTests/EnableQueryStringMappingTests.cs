@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Toolbox.WebApi.QueryString;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Http.Internal;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.ModelBinding;
 using Microsoft.AspNet.Routing;
 using Xunit;
+using Microsoft.AspNet.Mvc.Abstractions;
+using Microsoft.AspNet.Mvc.ActionConstraints;
+using Microsoft.AspNet.Http.Internal;
 
 namespace Toolbox.WebApi.UnitTests.QueryStringMappingTests
 {

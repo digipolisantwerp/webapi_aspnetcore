@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using Microsoft.Framework.Runtime;
+using Microsoft.Extensions.PlatformAbstractions;
 
 namespace Toolbox.WebApi.Versioning
 {
@@ -28,7 +26,7 @@ namespace Toolbox.WebApi.Versioning
                     AppName = _appEnv.ApplicationName ?? ""
                 };
 
-                    string[] splitbuildnr = (_appEnv.Version ?? "").Split('-');                    
+                    string[] splitbuildnr = (_appEnv.ApplicationVersion ?? "").Split('-');                    
                     string[] splitversion = (splitbuildnr[0]).Split('.');
 
                 retAV.MajorVersion = splitversion[0];

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Toolbox.WebApi.Versioning;
-using Microsoft.Framework.Runtime;
 using Moq;
 using Xunit;
+using Microsoft.Extensions.PlatformAbstractions;
 
 namespace Toolbox.WebApi.UnitTests.VersioningProviderTests
 {
@@ -22,7 +19,7 @@ namespace Toolbox.WebApi.UnitTests.VersioningProviderTests
         public void MajorVersie_Wordt_Correct_Geparsed(string versie, string major)
         {
             var appenv_mock = new Mock<IApplicationEnvironment>();
-            appenv_mock.Setup(foo => foo.Version).Returns(versie).Verifiable();
+            appenv_mock.Setup(foo => foo.ApplicationVersion).Returns(versie).Verifiable();
             
             var provider = new WebApiVersionProvider(appenv_mock.Object);
 
@@ -43,7 +40,7 @@ namespace Toolbox.WebApi.UnitTests.VersioningProviderTests
         public void MinorVersie_Wordt_Correct_Geparsed(string versie, string minor)
         {
             var appenv_mock = new Mock<IApplicationEnvironment>();
-            appenv_mock.Setup(foo => foo.Version).Returns(versie).Verifiable();
+            appenv_mock.Setup(foo => foo.ApplicationVersion).Returns(versie).Verifiable();
 
             var provider = new WebApiVersionProvider(appenv_mock.Object);
 
@@ -65,7 +62,7 @@ namespace Toolbox.WebApi.UnitTests.VersioningProviderTests
         public void RevisionVersie_Wordt_Correct_Geparsed(string versie, string revision)
         {
             var appenv_mock = new Mock<IApplicationEnvironment>();
-            appenv_mock.Setup(foo => foo.Version).Returns(versie).Verifiable();
+            appenv_mock.Setup(foo => foo.ApplicationVersion).Returns(versie).Verifiable();
 
             var provider = new WebApiVersionProvider(appenv_mock.Object);
 
@@ -88,7 +85,7 @@ namespace Toolbox.WebApi.UnitTests.VersioningProviderTests
         public void Buildnummer_Wordt_Correct_Geparsed(string versie, string buildnr)
         {
             var appenv_mock = new Mock<IApplicationEnvironment>();
-            appenv_mock.Setup(foo => foo.Version).Returns(versie).Verifiable();
+            appenv_mock.Setup(foo => foo.ApplicationVersion).Returns(versie).Verifiable();
 
             var provider = new WebApiVersionProvider(appenv_mock.Object);
 
@@ -101,7 +98,7 @@ namespace Toolbox.WebApi.UnitTests.VersioningProviderTests
         public void Versie_Gelijkaan_null_Wordt_Correct_Geparsed()
         {
             var appenv_mock = new Mock<IApplicationEnvironment>();
-            appenv_mock.Setup(foo => foo.Version).Verifiable();
+            appenv_mock.Setup(foo => foo.ApplicationVersion).Verifiable();
 
             var provider = new WebApiVersionProvider(appenv_mock.Object);
 

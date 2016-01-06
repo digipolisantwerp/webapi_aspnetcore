@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.Mvc.Abstractions;
+using Microsoft.AspNet.Mvc.ActionConstraints;
 using Microsoft.AspNet.Mvc.ModelBinding;
 
 namespace Toolbox.WebApi.QueryString

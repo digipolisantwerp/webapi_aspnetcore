@@ -1,6 +1,6 @@
 ﻿using System;
 using Toolbox.WebApi.Versioning;
-using Microsoft.Framework.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Toolbox.WebApi
 {

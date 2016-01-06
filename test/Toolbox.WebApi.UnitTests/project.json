@@ -1,0 +1,20 @@
+﻿{
+	"version": "1.0.0-*",
+	"description": "Toolbox.WebApi.UnitTests Class Library",
+	"authors": [ "Toolbox" ],
+	"tags": [ "" ],
+	"projectUrl": "",
+	"licenseUrl": "",
+	"dependencies": {
+		"Toolbox.WebApi": "",
+		"Moq": "4.2.1502.911",
+		"xunit": "2.1.0-beta4-build3109",
+    "xunit.runner.dnx": "2.1.0-beta4-build134"
+	},
+    "commands": {
+        "test": "xunit.runner.dnx"
+    },
+    "frameworks": {
+        "dnx451": { }
+    }
+}

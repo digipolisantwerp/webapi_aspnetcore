@@ -16,10 +16,10 @@ namespace Toolbox.WebApi.UnitTests.VersioningProviderTests
         [InlineData("1-5", "1")]
         [InlineData(".2.3", "")]
         [InlineData("", "")]        
-        public void MajorVersie_Wordt_Correct_Geparsed(string versie, string major)
+        public void MajorVersion_Is_Parsed_Correctly(string version, string major)
         {
             var appenv_mock = new Mock<IApplicationEnvironment>();
-            appenv_mock.Setup(foo => foo.ApplicationVersion).Returns(versie).Verifiable();
+            appenv_mock.Setup(foo => foo.ApplicationVersion).Returns(version).Verifiable();
             
             var provider = new WebApiVersionProvider(appenv_mock.Object);
 
@@ -37,10 +37,10 @@ namespace Toolbox.WebApi.UnitTests.VersioningProviderTests
         [InlineData("1-", "?")]
         [InlineData("1.", "")]
         [InlineData("", "?")]
-        public void MinorVersie_Wordt_Correct_Geparsed(string versie, string minor)
+        public void MinorVersion_Is_Parsed_Correctly(string version, string minor)
         {
             var appenv_mock = new Mock<IApplicationEnvironment>();
-            appenv_mock.Setup(foo => foo.ApplicationVersion).Returns(versie).Verifiable();
+            appenv_mock.Setup(foo => foo.ApplicationVersion).Returns(version).Verifiable();
 
             var provider = new WebApiVersionProvider(appenv_mock.Object);
 
@@ -59,10 +59,10 @@ namespace Toolbox.WebApi.UnitTests.VersioningProviderTests
         [InlineData("1.2", "?")]
         [InlineData("1.2.", "")]
         [InlineData("", "?")]
-        public void RevisionVersie_Wordt_Correct_Geparsed(string versie, string revision)
+        public void RevisionVersion_Is_Parsed_Correctly(string version, string revision)
         {
             var appenv_mock = new Mock<IApplicationEnvironment>();
-            appenv_mock.Setup(foo => foo.ApplicationVersion).Returns(versie).Verifiable();
+            appenv_mock.Setup(foo => foo.ApplicationVersion).Returns(version).Verifiable();
 
             var provider = new WebApiVersionProvider(appenv_mock.Object);
 
@@ -82,10 +82,10 @@ namespace Toolbox.WebApi.UnitTests.VersioningProviderTests
         [InlineData("1.2", "?")]
         [InlineData("1.2.", "?")]
         [InlineData("", "?")]
-        public void Buildnummer_Wordt_Correct_Geparsed(string versie, string buildnr)
+        public void Buildnumber_Is_Parsed_Correctly(string version, string buildnr)
         {
             var appenv_mock = new Mock<IApplicationEnvironment>();
-            appenv_mock.Setup(foo => foo.ApplicationVersion).Returns(versie).Verifiable();
+            appenv_mock.Setup(foo => foo.ApplicationVersion).Returns(version).Verifiable();
 
             var provider = new WebApiVersionProvider(appenv_mock.Object);
 
@@ -95,7 +95,7 @@ namespace Toolbox.WebApi.UnitTests.VersioningProviderTests
 
 
         [Fact]
-        public void Versie_Gelijkaan_null_Wordt_Correct_Geparsed()
+        public void Version_Equals_null_Is_Parsed_Correctly()
         {
             var appenv_mock = new Mock<IApplicationEnvironment>();
             appenv_mock.Setup(foo => foo.ApplicationVersion).Verifiable();
@@ -107,7 +107,7 @@ namespace Toolbox.WebApi.UnitTests.VersioningProviderTests
         }
         
         [Fact]
-        public void ApplicationBasePath_Gelijkaan_null_Wordt_Correct_Afgehandeld()
+        public void ApplicationBasePath_Equals_null_Is_Parsed_Correctly()
         {
             var appenv_mock = new Mock<IApplicationEnvironment>();
             appenv_mock.Setup(foo => foo.ApplicationBasePath).Verifiable();

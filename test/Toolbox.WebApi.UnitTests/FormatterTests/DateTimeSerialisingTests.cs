@@ -15,44 +15,44 @@ namespace Toolbox.WebApi.UnitTests.FormatterTests.JsonFormatter
 {
     public class DateTimeSerialisingTests
     {
-        private Gesprek DeserializeGesprekMetBeginUur(DateTime? datum)
+        private DateTimeSerialisationMockingObject DeserializeDateTimeSerialisationMockingObjectWithDateTimeProperty1(DateTime? date)
         {
             var formatter = new RootObjectJsonInputFormatter();
             var httpContext = new DefaultHttpContext();
 
             var provider = new EmptyModelMetadataProvider();
-            var metadata = provider.GetMetadataForType(typeof(Gesprek));
+            var metadata = provider.GetMetadataForType(typeof(DateTimeSerialisationMockingObject));
 
-            var formatterContext = new InputFormatterContext(httpContext, typeof(Gesprek).Name, new ModelStateDictionary(), metadata);
+            var formatterContext = new InputFormatterContext(httpContext, typeof(DateTimeSerialisationMockingObject).Name, new ModelStateDictionary(), metadata);
 
-            var datumUTCString = datum?.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'");
-            var dateStringWithQuotes = String.IsNullOrEmpty(datumUTCString) ? "null" : $"\"{datumUTCString}\"";
+            var dateUTCString = date?.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'");
+            var dateStringWithQuotes = String.IsNullOrEmpty(dateUTCString) ? "null" : $"\"{dateUTCString}\"";
 
             var reader = new Mock<StreamReader>(new MemoryStream(), Encoding.UTF8);
-            reader.Setup(x => x.ReadToEnd()).Returns("{\"Gesprek\":{\"geplandOp\":" + dateStringWithQuotes + "}}");
+            reader.Setup(x => x.ReadToEnd()).Returns("{\"DateTimeSerialisationMockingObject\":{\"DatetimeProperty1\":" + dateStringWithQuotes + "}}");
 
-            var gesprek = formatter.ReadFromStream(formatterContext, reader.Object);
-            return (Gesprek)gesprek;
+            var dateTimeSerialisationMockingObject = formatter.ReadFromStream(formatterContext, reader.Object);
+            return (DateTimeSerialisationMockingObject)dateTimeSerialisationMockingObject;
         }
 
         [Fact]
-        public void CheckGekozenUurWordtCorrectGedeserialisedNaarLocalTime()
+        public void CheckChosenHourIsCorrectlyDeserializedToLocalTime()
         {
-            var gekozenUur = 23;
-            var datum = new DateTime(2015, 09, 10, gekozenUur, 0, 0, DateTimeKind.Local);
+            var chosenHour = 23;
+            var date = new DateTime(2015, 09, 10, chosenHour, 0, 0, DateTimeKind.Local);
 
-            Gesprek gesprek = DeserializeGesprekMetBeginUur(datum);
-            Assert.Equal(gesprek.GeplandOp.TimeOfDay.Hours, gekozenUur);
+            DateTimeSerialisationMockingObject dateTimeSerialisationMockingObject = DeserializeDateTimeSerialisationMockingObjectWithDateTimeProperty1(date);
+            Assert.Equal(dateTimeSerialisationMockingObject.DatetimeProperty1.TimeOfDay.Hours, chosenHour);
         }
 
         [Fact]
-        public void CheckMiddernachtWordtCorrectGedeserialisedNaarLocalTime()
+        public void CheckMidnightIsCorrectlyDeserialisedToLocalTime()
         {
-            var gekozenUur = 0;
-            var datum = new DateTime(2015, 09, 10, gekozenUur, 30, 0, DateTimeKind.Local);
+            var chosenHour = 0;
+            var date = new DateTime(2015, 09, 10, chosenHour, 30, 0, DateTimeKind.Local);
 
-            Gesprek gesprek = DeserializeGesprekMetBeginUur(datum);
-            Assert.Equal(gesprek.GeplandOp.TimeOfDay.Hours, gekozenUur);
+            DateTimeSerialisationMockingObject gesprek = DeserializeDateTimeSerialisationMockingObjectWithDateTimeProperty1(date);
+            Assert.Equal(gesprek.DatetimeProperty1.TimeOfDay.Hours, chosenHour);
         }
     }
 }

@@ -1,48 +1,46 @@
 # WebApi Toolbox
 
 <br>
-De WebApi Toolbox biedt een aantal algemene functionaliteiten aan die kunnen gebruikt worden in ASP.NET 5 Web Api projecten
-
+The WebApi Toolbox offers some functionality that can be used in ASP.NET Web API 5 projects:
 - versioning.
-- base classes die veel gebruikte functionaliteiten encapsuleren.
-- root ojbect formatter voor koppelingen met de ESB.
+- base classes that encapsulate common functionality.
+- root object formatter for connecting with ESB.
 - query string mapping.
 
 <br>
-## Installatie
-De toolbox toevoegen aan een project kan gedaan worden via de NuGet Package Manager in Visual Studio of door het package toe te voegen aan de project.json :
+## Installation
+Adding the toolbox to a project can be done via the NuGet Package Manager in Visual Studio or by adding the package to the project.json :
 
 ``` json
  "dependencies": {
     ...,
-    "Digipolis.WebApi":  "1.0.4", 
+    "Toolbox.WebApi":  "1.0.4",
     ...
  }
 ```
 <br>
 ## Versioning
-
-Het versioning framework zorgt voor een extra endpoint op de Web Api waar het versienummer van de toepassing kan opgevraagd worden. Standaard is dit endpoint voorzien op url **_admin/version_**, maar deze kan tijdens het opstarten een andere waarde gegeven worden.
+The versioning framework adds an additional endpoint on the Web Api where the version number of the application can be requested. By default, this endpoint is provided at the url **_admin/version_**, but this can be changed to another value during startup.
 
 <br>
-Het framework wordt toegevoegd aan een ASP.NET 5 project in de **_Startup_** class. Eerst worden de nodige services geconfigureerd in de ConfigureServices method van de Startup class :
+The framework is added to an ASP.NET project in the 5 **_Startup _**  class. First the necessary services are configured in the ConfigureServices method of the Startup class :
 
 ``` csharp
   services.AddWebApiVersioning(WebApiVersioningOptions.Default);
 ```
-Als je tevreden bent met de standaard opties, geef je **_WebApiVersioningOptions.Default_** mee. Eigen opties instellen, kan door een nieuw geïnstantieerd WebApiVersioningOptions object mee te geven :
+If you are satisfied with the default options, you send ** _WebApiVersioningOptions.Default_** as the parameter. To set custom options, can send a newly instantiated object WebApiVersioningOptions :
 
 ``` csharp
    app.AddWebApiVersioning(new WebApiVersioningOptions() { Route = "api/mijnversie" });
 ```
 
-Volgende opties kunnen ingesteld worden :
+The following options can be set :
 
-Optie              | Omschrijving                                                | Default
+Option              | Description                                                | Default
 ------------------ | ----------------------------------------------------------- | --------------------------------------
-Route              | de url waar de lijst van codetabellen kan opgevraagd worden | admin/version
+Route              | the URL where the list of code tables can be requested | admin/version
 
-Daarna wordt in de Configure method van de Startup class, het framework opgestart.
+Then the framework gets started in the Configure method of the startup class.
 
 ``` csharp
    app.UseWebApiVersioning();
@@ -52,26 +50,26 @@ Daarna wordt in de Configure method van de Startup class, het framework opgestar
 <br>
 ## Base classes
 
-Info volgt nog.
+Details coming soon.
 
 
 <br>
 ## RootObjectFormatters
 
-Info volgt nog.
+Details coming soon.
 
 
 <br>
 ## QueryStringFormatting
 
-Info volgt nog.
+Details coming soon.
 
 
 
 <br>
-## Versies
+## Versions
 
-| Versie | Auteur                                  | Omschrijving
+| Version | Author                                  | Description
 | ------ | ----------------------------------------| ----------------------------------------------------
-| 1.0.0  | Steven Vanden Broeck                    | Initiële versie.
-|        |                                         |  
+| 1.0.0  | Steven Vanden Broeck                    | Initial version.
+| 1.0.1  | Koen Stroobants                         | English translation 

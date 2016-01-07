@@ -19,31 +19,6 @@ namespace Toolbox.WebApi
             services.AddInstance(options);
 
         }
-
-        //Voorlopig niet gebruikt rc01831
-
-        //public static IServiceCollection AddRootObjectFormatters(this IServiceCollection services, WebApiFormattingOptions options)
-        //{
-        //    RegisterFormattingControllerDiscovery(services, options);
-        //    return services;
-        //}
-
-        //private static void RegisterFormattingControllerDiscovery(IServiceCollection services, WebApiFormattingOptions options)
-        //{
-        //  services.AddInstance(options);
-        //}
-
-        //Voorlopig niet gebruikt rc01831
-        //public static IServiceCollection AddQueryStringMappings(this IServiceCollection services, WebApiQuerystringOptions options)
-        //{
-        //    RegisterQueryStringControllerDiscovery(services, options);
-        //    return services;
-        //}
-
-        //private static void RegisterQueryStringControllerDiscovery(IServiceCollection services, WebApiQuerystringOptions options)
-        //{
-        //    services.AddInstance(options);
-        //}
-
+              
     }
 }

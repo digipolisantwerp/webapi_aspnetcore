@@ -7,7 +7,7 @@ namespace Toolbox.WebApi
     {
         public static IApplicationBuilder UseWebApiVersioning(this IApplicationBuilder app)
         {
-            // Todo : voeg hier startup logica toe, indien nodig
+            // Todo : add startup logic here, if neccesary.
 
             return app;
         }

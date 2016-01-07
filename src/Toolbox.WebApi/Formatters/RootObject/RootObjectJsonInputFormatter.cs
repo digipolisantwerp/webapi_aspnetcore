@@ -44,11 +44,11 @@ namespace Toolbox.WebApi.Formatters
                     var jsonObject = JObject.Parse(jsonString);
                     var jsonToken = jsonObject.SelectToken(rootName);
                     if (jsonToken == null)
-                        throw new RootObjectMissingException($"Root object met naam {rootName} ontbreekt in de input parameter. Als er toch een root object is, check dan of de spelling en casing kloppen.", type.Name);
+                        throw new RootObjectMissingException($"Root object with name {rootName} is missing in the input parameter. If there is a root object, then check the accuracy of spelling and casing.", type.Name);
 
                     var dataObject = JsonConvert.DeserializeObject(jsonToken.ToString(), type, SerializerSettings);
                     if (dataObject == null)
-                        throw new BadRootObjectException("Input parameter volgt structuur met Root object niet.", type.Name);
+                        throw new BadRootObjectException("Input parameter does not follow the structure with the root object.", type.Name);
 
                     return dataObject;
                 }
@@ -60,7 +60,7 @@ namespace Toolbox.WebApi.Formatters
                 catch (JsonSerializationException jsonEx)
                 {
                     context.ModelState.TryAddModelError(String.Empty, jsonEx.Message);
-                    throw new BadRootObjectException(String.Format("Input parameter volgt structuur met Root object niet : {0}", jsonEx.Message), type.Name);
+                    throw new BadRootObjectException(String.Format("Input parameter does not follow the structure with the root object : {0}", jsonEx.Message), type.Name);
                 }
                 catch (Exception ex)
                 {

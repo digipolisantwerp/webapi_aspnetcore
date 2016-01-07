@@ -14,7 +14,7 @@ namespace Toolbox.WebApi.Versioning
         }
 
         /// <summary>
-        /// Haal de huidige versie op van de component
+        /// Retrieve the current version of the component
         /// </summary>
         /// <returns>AppVersion object</returns>
         public AppVersion GetCurrentVersion()
@@ -44,15 +44,12 @@ namespace Toolbox.WebApi.Versioning
                     retAV.BuildDate = versieFileInfo.CreationTime.ToString();
                     if (_appEnv.ApplicationBasePath == null)
                     {
-                        retAV.BuildDate = "?"; //Truuk van de foor => TODO rc01831
-                    }
-                    //retAV.BuildNumber = versieFileInfo.Name.Substring(versieFileInfo.Name.LastIndexOf('_') + 1);
+                        retAV.BuildDate = "?"; 
+                    }                   
                 }
                 else
-                {
-                    //throw new Exception("Het buildnummer kon niet worden vastgesteld.");
-                    retAV.BuildDate = "?";
-                    //retAV.BuildNumber = "?";
+                {                    
+                    retAV.BuildDate = "?";                   
                 }
 
                 return retAV;
@@ -60,7 +57,7 @@ namespace Toolbox.WebApi.Versioning
             }
             catch (Exception ex)
             {
-                throw new Exception("Er liep iets mis bij het vaststellen van de versiegegevens.", ex);
+                throw new Exception("Something went wrong while determining the version data.", ex);
             }
         }
 

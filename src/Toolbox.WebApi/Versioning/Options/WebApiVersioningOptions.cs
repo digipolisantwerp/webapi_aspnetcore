@@ -19,17 +19,17 @@ namespace Toolbox.WebApi
         }
 
         /// <summary>
-        /// De route waar de versie kan opgevraagd worden (default = '/admin/version').
+        /// The route wwhere the version can be requested (default = '/admin/version').
         /// </summary>
         public string Route { get; set; }
 
         /// <summary>
-        /// De assembly waar de versie controllers gedefinieerd zijn (default = de assembly waar de Startup class gevonden wordt).
+        /// De assembly where the version controllers are defined (default = the assembly where the Startup class is found).
         /// </summary>
         public Assembly ControllerAssembly { get; private set; }
 
         /// <summary>
-        /// Default Route = 'admin/version' en default Assembly is diegene waar de Startup class in gevonden wordt.
+        /// Default Route = 'admin/version' and default Assembly is the one where the Startup class is fount in.
         /// </summary>
         public static WebApiVersioningOptions Default { get { return new WebApiVersioningOptions(); } }
 

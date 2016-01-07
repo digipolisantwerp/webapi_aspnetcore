@@ -7,7 +7,7 @@ namespace Toolbox.WebApi.Formatters
     {
         public RootObjectAttribute(string name)
         {
-            if ( String.IsNullOrWhiteSpace(name) ) throw new ArgumentException("name mag niet null of leeg zijn.", "name");
+            if ( String.IsNullOrWhiteSpace(name) ) throw new ArgumentException("name cannot be null or empty.", "name");
             this.Name = name;
         }
 

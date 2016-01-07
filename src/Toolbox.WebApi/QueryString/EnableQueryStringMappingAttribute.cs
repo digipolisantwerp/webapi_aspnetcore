@@ -99,7 +99,7 @@ namespace Toolbox.WebApi.QueryString
 						}
 						else
 						{
-							// parameter met juiste naam maar zonder FromQueryAttribute
+							// parameter with the right name but without FromQueryAttribute
 							isMatch = false;
 							break;
 						}
@@ -108,7 +108,7 @@ namespace Toolbox.WebApi.QueryString
 					{
 						if ( HasFromQueryAttribute(actionParam) )
 						{
-							// parameter was verwacht in de query string
+							// parameter was expected in the query string
 							isMatch = false;
 							break;
 						}
@@ -134,7 +134,7 @@ namespace Toolbox.WebApi.QueryString
 
 		private bool IsCollection(Type type)
 		{
-			if ( type == typeof(string) ) return false;		// alleen echte collections
+			if ( type == typeof(string) ) return false;		// only real collections
 			return typeof(IEnumerable).IsAssignableFrom(type);
 		}
 	}

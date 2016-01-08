@@ -14,7 +14,7 @@ Adding the toolbox to a project can be done via the NuGet Package Manager in Vis
 ``` json
  "dependencies": {
     ...,
-    "Toolbox.WebApi":  "1.0.4",
+    "Toolbox.WebApi":  "1.0.5",
     ...
  }
 ```
@@ -72,4 +72,4 @@ Details coming soon.
 | Version | Author                                  | Description
 | ------ | ----------------------------------------| ----------------------------------------------------
 | 1.0.0  | Steven Vanden Broeck                    | Initial version.
-| 1.0.1  | Koen Stroobants                         | English translation 
+| 1.0.1  | Koen Stroobants                         | English translation

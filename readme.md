@@ -14,7 +14,7 @@ Adding the toolbox to a project can be done via the NuGet Package Manager in Vis
 ``` json
  "dependencies": {
     ...,
-    "Toolbox.WebApi":  "1.0.5",
+    "Toolbox.WebApi":  "1.0.6",
     ...
  }
 ```

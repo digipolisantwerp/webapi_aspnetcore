@@ -4,7 +4,7 @@ using Moq;
 using Xunit;
 using Microsoft.Extensions.PlatformAbstractions;
 
-namespace Toolbox.WebApi.UnitTests.VersioningProviderTests
+namespace Toolbox.WebApi.UnitTests.Versioning
 {
     public class VersioningProviderTests
     {

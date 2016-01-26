@@ -1,6 +1,6 @@
 {
-    "version": "1.0.6",
-    "description": "WebApi toolbox.",
+    "version": "1.1.0",
+    "description": "Toolbox for Web API projects in ASP.NET Core.",
     "authors": [ "digipolis.be" ],
     "tags": [ "" ],
     "projectUrl": "",
@@ -13,9 +13,8 @@
     },
     "frameworks": {
         "dnx451": {
-            "frameworkAssemblies": {
-
-            }
+            "frameworkAssemblies": 
+            { }
         }
     }
 }

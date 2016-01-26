@@ -11,7 +11,7 @@ using Microsoft.AspNet.Mvc.Formatters;
 using Microsoft.AspNet.Http.Internal;
 using Microsoft.AspNet.Mvc.ModelBinding.Metadata;
 
-namespace Toolbox.WebApi.UnitTests.FormatterTests.JsonFormatter
+namespace Toolbox.WebApi.UnitTests.Formatters
 {
     public class DateTimeSerialisingTests
     {

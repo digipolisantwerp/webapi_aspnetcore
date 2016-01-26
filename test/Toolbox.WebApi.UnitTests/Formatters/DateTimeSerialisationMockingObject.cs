@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Toolbox.WebApi.UnitTests.FormatterTests
+namespace Toolbox.WebApi.UnitTests.Formatters
 {
     public class DateTimeSerialisationMockingObject
     {

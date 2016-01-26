@@ -10,10 +10,11 @@
         "Moq": "4.2.1502.911",
         "xunit": "2.1.0-rc1-build3168",
         "xunit.runner.dnx": "2.1.0-rc1-build204",
-      "Microsoft.AspNet.Http": "1.0.0-rc1-final",
-      "Microsoft.AspNet.Mvc.Core": "6.0.0-rc1-final",
-      "Microsoft.AspNet.Mvc.Abstractions": "6.0.0-rc1-final",
-      "Microsoft.AspNet.Mvc.Formatters.Json": "6.0.0-rc1-final"
+        "Microsoft.AspNet.Http": "1.0.0-rc1-final",
+        "Microsoft.AspNet.Mvc.Core": "6.0.0-rc1-final",
+        "Microsoft.AspNet.Mvc.Abstractions": "6.0.0-rc1-final",
+        "Microsoft.AspNet.Mvc.Formatters.Json": "6.0.0-rc1-final",
+        "Microsoft.Extensions.DependencyInjection": "1.0.0-rc1-final"
     },
     "commands": {
         "test": "xunit.runner.dnx"

@@ -14,10 +14,8 @@ namespace Toolbox.WebApi
 
         private static void RegisterControllerDiscovery(IServiceCollection services, WebApiVersioningOptions options)
         {
-            //services.AddSingleton(typeof(IServiceCollection), (o) => { return services; });
             services.AddSingleton<IVersionProvider, WebApiVersionProvider>();
             services.AddInstance(options);
-
         }
               
     }

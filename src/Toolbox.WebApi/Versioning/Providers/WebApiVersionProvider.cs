@@ -26,8 +26,8 @@ namespace Toolbox.WebApi.Versioning
                     AppName = _appEnv.ApplicationName ?? ""
                 };
 
-                    string[] splitbuildnr = (_appEnv.ApplicationVersion ?? "").Split('-');                    
-                    string[] splitversion = (splitbuildnr[0]).Split('.');
+                string[] splitbuildnr = (_appEnv.ApplicationVersion ?? "").Split('-');                    
+                string[] splitversion = (splitbuildnr[0]).Split('.');
 
                 retAV.MajorVersion = splitversion[0];
                 retAV.MinorVersion = splitversion.Length > 1 ? splitversion[1] : "?";

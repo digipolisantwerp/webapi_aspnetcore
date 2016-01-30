@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.OptionsModel;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,9 +7,9 @@ namespace Toolbox.WebApi.Versioning
 {
     public class WebApiVersioningOptionsSetup : IConfigureOptions<MvcOptions>
     {
-        public WebApiVersioningOptionsSetup(IApplicationBuilder app)
+        public WebApiVersioningOptionsSetup(IServiceProvider serviceProvider)
         {
-            OptionsServices = app.ApplicationServices;
+            OptionsServices = serviceProvider;
         }
 
         internal IServiceProvider OptionsServices { get; private set; }
@@ -18,7 +17,7 @@ namespace Toolbox.WebApi.Versioning
         public void Configure(MvcOptions options)
         {
             var versionOptions = OptionsServices.GetService<IOptions<WebApiVersioningOptions>>();
-            //options.Conventions.Add(new WebApiVersioningConvention());
+            options.Conventions.Add(new WebApiVersioningConvention(versionOptions));
         }
     }
 }

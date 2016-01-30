@@ -1,7 +1,5 @@
 ﻿using System;
-using Microsoft.AspNet.Builder.Internal;
 using Microsoft.AspNet.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.OptionsModel;
 using Moq;
 using Toolbox.WebApi.Versioning;
@@ -15,9 +13,8 @@ namespace Toolbox.WebApi.UnitTests.Versioning
         private void OptionsServicesIsSet()
         {
             var serviceProviderMock = new Mock<IServiceProvider>();
-            var appBuilder = new ApplicationBuilder(serviceProviderMock.Object);
 
-            var optionsSetup = new WebApiVersioningOptionsSetup(appBuilder);
+            var optionsSetup = new WebApiVersioningOptionsSetup(serviceProviderMock.Object);
 
             Assert.Same(serviceProviderMock.Object, optionsSetup.OptionsServices);
         }
@@ -25,14 +22,13 @@ namespace Toolbox.WebApi.UnitTests.Versioning
         [Fact]
         private void ConventionIsAdded()
         {
-            var serviceProvider = new Mock<IServiceProvider>();
-            var appBuilder = new ApplicationBuilder(serviceProvider.Object);
+            var serviceProviderMock = new Mock<IServiceProvider>();
 
             var options = new TestWebApiVersioningOptions(new WebApiVersioningOptions() { Route = "myroute" });
-            serviceProvider.Setup(svp => svp.GetService(typeof(IOptions<WebApiVersioningOptions>))).Returns(options);
+            serviceProviderMock.Setup(svp => svp.GetService(typeof(IOptions<WebApiVersioningOptions>))).Returns(options);
 
             var mvcOptions = new MvcOptions();
-            var setup = new WebApiVersioningOptionsSetup(appBuilder);
+            var setup = new WebApiVersioningOptionsSetup(serviceProviderMock.Object);
 
             Assert.Equal(0, mvcOptions.Conventions.Count);
 

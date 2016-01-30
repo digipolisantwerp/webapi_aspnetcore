@@ -20,8 +20,7 @@ namespace Toolbox.WebApi.Versioning
         {
             try
             {
-               
-                return new ObjectResult(_versionProvider.GetCurrentVersion()) { StatusCode = 200 };
+                return new HttpOkObjectResult(_versionProvider.GetCurrentVersion());
             }
             catch (Exception ex)
             {

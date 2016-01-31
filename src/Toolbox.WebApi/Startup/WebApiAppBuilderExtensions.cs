@@ -1,13 +1,17 @@
 ﻿using System;
 using Microsoft.AspNet.Builder;
+using Toolbox.WebApi.Swagger;
 
 namespace Toolbox.WebApi
 {
     public static class WebApiAppBuilderExtensions
     {
-        public static IApplicationBuilder UseWebApiVersioning(this IApplicationBuilder app)
+        public static IApplicationBuilder UseSwaggerUiRedirect(this IApplicationBuilder app, string url = null)
         {
-            // Todo : add startup logic here, if neccesary.
+            if ( url == null )
+                app.UseMiddleware<SwaggerUiRedirectMiddleware>();
+            else
+                app.UseMiddleware<SwaggerUiRedirectMiddleware>(url);
 
             return app;
         }

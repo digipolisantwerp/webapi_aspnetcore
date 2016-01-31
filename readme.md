@@ -5,6 +5,7 @@ The WebApi Toolbox offers some functionality that can be used in ASP.NET Core 1.
 - base classes that encapsulate common functionality.
 - root object formatter for JSON formatting.
 - controller action overloading.  
+- swagger extensions
 
 ## Table of Contents
 
@@ -16,6 +17,7 @@ The WebApi Toolbox offers some functionality that can be used in ASP.NET Core 1.
 - [ActionOverloading](#actionoverloading)
 - [RootObject Formatters](#rootobject-formatters)
 - [Versioning](#versioning)
+- [Swagger extensions](#swagger-extensions)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -57,8 +59,7 @@ With the ActionOverloading part of this toolbox you can add this functionality t
 ```
 services.AddMvc().AddActionOverloading();
 ```
-  
-   
+     
 ## RootObject Formatters
 
 ...ToDo...  
@@ -74,6 +75,20 @@ The versioning framework is added to the project in **ConfigureServices** method
 ``` csharp
   services.AddMvc().AddVersioning();           // default route = /admin/version
   
-  service.AddMvc().AddVersioning(options => options.Route = "myrout");      // use custom route 
+  service.AddMvc().AddVersioning(options => options.Route = "myRoute");      // use custom route 
 ```
 
+## Swagger extensions
+
+When you use SwashBuckle to generate a Swagger UI for your API project, you might like to have the root url of your API point to that site. This can be done in the **Configure** of the Startup class :  
+
+``` csharp
+
+// ui on default url (swagger/ui)
+app.UseSwaggerUi();                 // from SwashBuckle.SwaggerUi package
+app.UseSwaggerUiRedirect();         
+
+// custom url
+app.UseSwaggerUi("myUrl");          // from SwashBuckle.SwaggerUi package
+app.UseSwaggerUiRedirect("myUrl") 
+``` 

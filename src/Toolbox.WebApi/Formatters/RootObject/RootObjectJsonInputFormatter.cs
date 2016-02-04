@@ -14,16 +14,8 @@ namespace Toolbox.WebApi.Formatters
 		public override Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context)
 		{
 			var reader = GetReader(context);
-			try
-			{
-				var jsonObject = ReadFromStream(context, reader);
-				return InputFormatterResult.SuccessAsync(jsonObject);
-			}
-			catch (Exception)
-			{
-				return InputFormatterResult.FailureAsync();
-				throw;
-			}
+			var jsonObject = ReadFromStream(context, reader);
+			return InputFormatterResult.SuccessAsync(jsonObject);
 		}
 
 		public StreamReader GetReader(InputFormatterContext context)

@@ -7,3 +7,7 @@
 ## 1.2.0
 
 - added app.UseSwaggerUiRedirect
+
+## 1.2.2
+
+- fix InputFormatter

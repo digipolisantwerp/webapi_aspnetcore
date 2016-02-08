@@ -5,11 +5,12 @@
     "tags": [ "" ],
     "projectUrl": "",
     "licenseUrl": "",
-    "dependencies": {
-        "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final",
-        "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
-        "Microsoft.AspNet.Mvc.ViewFeatures": "6.0.0-rc1-final"
-    },
+  "dependencies": {
+    "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final",
+    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
+    "Microsoft.AspNet.Mvc.ViewFeatures": "6.0.0-rc1-final",
+    "Microsoft.Net.Http": "2.2.22",
+  },
     "frameworks": {
         "dnx451": {
             "frameworkAssemblies": 

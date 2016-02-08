@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Toolbox.WebApi.CorrelationId;
 using System.Net.Http;
+using Microsoft.AspNet.Http;
 
 namespace SampleApi1.Controllers
 {
@@ -36,16 +37,7 @@ namespace SampleApi1.Controllers
                 Method = HttpMethod.Get,
             };
 
-            //Three methods to add the correlation values to a request:
-
-            //1. Set values directly on the request
-            //request.Headers.Add(_context.IdHeaderKey, _context.CorrelationId.ToString());
-            //request.Headers.Add(_context.SourceHeaderKey, _context.CorrelationSource);
-
-            //2. Use the SetValuesOnRequest method
-            //_context.SetValuesOnRequest(request);
-
-            //3. Use an extension method on the request (preffered)
+            //Set headers on the request
             request.SetCorrelationValues(_context);
 
             var client = new HttpClient();

@@ -1,5 +1,5 @@
-﻿using System;
-using System.Net.Http;
+﻿using Microsoft.AspNet.Http;
+using System;
 
 namespace Toolbox.WebApi.CorrelationId
 {
@@ -9,7 +9,5 @@ namespace Toolbox.WebApi.CorrelationId
         string CorrelationSource { get; }
         string IdHeaderKey { get; }
         string SourceHeaderKey { get; }
-
-        void SetValuesOnHttpRequest(HttpRequestMessage request);
     }
 }

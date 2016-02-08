@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNet.Http.Features;
+using Microsoft.AspNet.Http.Features.Internal;
+using Microsoft.AspNet.Http.Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -57,24 +60,6 @@ namespace Toolbox.WebApi.UnitTests.CorrelationId
             Assert.False(result);
             Assert.Equal(correlationId, context.CorrelationId);
             Assert.Equal(correlationSource, context.CorrelationSource);
-        }
-
-        [Fact]
-        public void AddHeaders()
-        {
-            var options = new CorrelationOptions();
-            var context = new CorrelationContext(Options.Create(options));
-            var correlationId = Guid.NewGuid();
-            var correlationSource = "TestSource";
-            context.TrySetValues(correlationId, correlationSource);
-            var request = new HttpRequestMessage();
-
-            context.SetValuesOnHttpRequest(request);
-
-            Assert.NotNull(request.Headers.Single(h => h.Key == options.IdHeaderKey));
-            Assert.Equal(correlationId.ToString(), request.Headers.Single(h => h.Key == options.IdHeaderKey).Value.First());
-            Assert.NotNull(request.Headers.Single(h => h.Key == options.SourceHeaderKey));
-            Assert.Equal(correlationSource, request.Headers.Single(h => h.Key == options.SourceHeaderKey).Value.First());
         }
     }
 }

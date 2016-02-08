@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.OptionsModel;
+﻿using Microsoft.AspNet.Http;
+using Microsoft.Extensions.OptionsModel;
 using System;
-using System.Net.Http;
 
 namespace Toolbox.WebApi.CorrelationId
 {
@@ -22,12 +22,6 @@ namespace Toolbox.WebApi.CorrelationId
         public string CorrelationSource { get; private set; }
         public string IdHeaderKey { get; private set; } 
         public string SourceHeaderKey { get; private set; }
-
-        public void SetValuesOnHttpRequest(HttpRequestMessage request)
-        {
-            request.Headers.Add(IdHeaderKey, CorrelationId.ToString());
-            request.Headers.Add(SourceHeaderKey, CorrelationSource);
-        }
 
         internal bool TrySetValues(Guid id, string source)
         {

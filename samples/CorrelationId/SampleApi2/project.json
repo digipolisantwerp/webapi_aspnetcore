@@ -10,12 +10,11 @@
     "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
     "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Configuration.FileProviderExtensions" : "1.0.0-rc1-final",
+    "Microsoft.Extensions.Configuration.FileProviderExtensions": "1.0.0-rc1-final",
     "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
-    "Toolbox.WebApi": "1.2.0"
+    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final"
   },
 
   "commands": {
@@ -23,15 +22,19 @@
   },
 
   "frameworks": {
-    "dnx451": { }
+    "dnx451": {
+      "dependencies": {
+        "Toolbox.WebApi": "1.2.0"
+      }
+    }
   },
 
-  "exclude": [
-    "wwwroot",
-    "node_modules"
-  ],
-  "publishExclude": [
-    "**.user",
-    "**.vspscc"
-  ]
-}
+    "exclude": [
+      "wwwroot",
+      "node_modules"
+    ],
+    "publishExclude": [
+      "**.user",
+      "**.vspscc"
+    ]
+  }

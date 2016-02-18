@@ -11,6 +11,8 @@ using Xunit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.OptionsModel;
 using Toolbox.WebApi.UnitTests.Utilities;
+using Microsoft.Extensions.Logging;
+using Toolbox.WebApi.Utilities;
 
 namespace Toolbox.WebApi.UnitTests.CorrelationId
 {
@@ -18,11 +20,17 @@ namespace Toolbox.WebApi.UnitTests.CorrelationId
     {
         private readonly string _externalSource = "externalApplication";
         private readonly string _applicationSource = "thisApplication";
+        private List<string> _loggedMessages;
+
+        public CorrelationIdMiddlewareTests()
+        {
+            _loggedMessages = new List<string>();
+        }
 
         [Fact]
         private void ThrowExceptionWhenNextDelegateIsNull()
         {
-            var ex = Assert.Throws<ArgumentNullException>(() => new CorrelationIdMiddleware(null, "src"));
+            var ex = Assert.Throws<ArgumentNullException>(() => new CorrelationIdMiddleware(null, "src", CreateLogger(_loggedMessages)));
             Assert.Equal("next", ex.ParamName);
         }
 
@@ -30,7 +38,7 @@ namespace Toolbox.WebApi.UnitTests.CorrelationId
         private void ThrowExceptionWhenSourceIsNull()
         {
             var requestDelegate = CreateRequestDelegate();
-            var ex = Assert.Throws<ArgumentNullException>(() => new CorrelationIdMiddleware(requestDelegate, null));
+            var ex = Assert.Throws<ArgumentNullException>(() => new CorrelationIdMiddleware(requestDelegate, null, CreateLogger(_loggedMessages)));
             Assert.Equal("source", ex.ParamName);
         }
 
@@ -38,15 +46,23 @@ namespace Toolbox.WebApi.UnitTests.CorrelationId
         private void ThrowExceptionWhenSourceIsEmpty()
         {
             var requestDelegate = CreateRequestDelegate();
-            var ex = Assert.Throws<ArgumentNullException>(() => new CorrelationIdMiddleware(requestDelegate, String.Empty));
+            var ex = Assert.Throws<ArgumentNullException>(() => new CorrelationIdMiddleware(requestDelegate, String.Empty, CreateLogger(_loggedMessages)));
             Assert.Equal("source", ex.ParamName);
+        }
+
+        [Fact]
+        private void ThrowExceptionWhenLoggerIsNull()
+        {
+            var requestDelegate = CreateRequestDelegate();
+            var ex = Assert.Throws<ArgumentNullException>(() => new CorrelationIdMiddleware(requestDelegate, "src", null));
+            Assert.Equal("logger", ex.ParamName);
         }
 
         [Fact]
         public async void ThrowExceptionWhenCorrelationContextNotAvailable()
         {
             var requestDelegate = CreateRequestDelegate();
-             var middleware = new CorrelationIdMiddleware(requestDelegate, _applicationSource);
+             var middleware = new CorrelationIdMiddleware(requestDelegate, _applicationSource, CreateLogger(_loggedMessages));
 
             Exception x = await Assert.ThrowsAsync<ArgumentNullException>(() => middleware.Invoke(new DefaultHttpContext()));
         }
@@ -62,7 +78,7 @@ namespace Toolbox.WebApi.UnitTests.CorrelationId
             var isInvoked = false;
             var requestDelegate = CreateRequestDelegate(() => isInvoked = true);
 
-             var middleware = new CorrelationIdMiddleware(requestDelegate, _applicationSource);
+             var middleware = new CorrelationIdMiddleware(requestDelegate, _applicationSource, CreateLogger(_loggedMessages));
 
             await middleware.Invoke(httpContext);
 
@@ -78,7 +94,7 @@ namespace Toolbox.WebApi.UnitTests.CorrelationId
 
             httpContext.RequestServices = CreateServiceProvider(correlationContext, options);
             var requestDelegate = CreateRequestDelegate();
-             var middleware = new CorrelationIdMiddleware(requestDelegate, _applicationSource);
+             var middleware = new CorrelationIdMiddleware(requestDelegate, _applicationSource, CreateLogger(_loggedMessages));
 
             await middleware.Invoke(httpContext);
 
@@ -99,12 +115,34 @@ namespace Toolbox.WebApi.UnitTests.CorrelationId
             httpContext.Request.Headers.Add(options.SourceHeaderKey, _externalSource);
 
             var requestDelegate = CreateRequestDelegate();
-             var middleware = new CorrelationIdMiddleware(requestDelegate, _applicationSource);
+             var middleware = new CorrelationIdMiddleware(requestDelegate, _applicationSource, CreateLogger(_loggedMessages));
 
             await middleware.Invoke(httpContext);
 
             Assert.Equal(initialId, correlationContext.CorrelationId);
             Assert.Equal(_externalSource, correlationContext.CorrelationSource);
+        }
+
+        [Fact]
+        private async void CorrelationValuesGetLogged()
+        {
+            var initialId = Guid.NewGuid();
+            var httpContext = new DefaultHttpContext();
+            var options = new CorrelationOptions();
+            var correlationContext = CreateContext(options);
+
+            httpContext.RequestServices = CreateServiceProvider(correlationContext, options);
+            httpContext.Request.Headers.Add(options.IdHeaderKey, initialId.ToString());
+            httpContext.Request.Headers.Add(options.SourceHeaderKey, _externalSource);
+
+            var requestDelegate = CreateRequestDelegate();
+            var middleware = new CorrelationIdMiddleware(requestDelegate, _applicationSource, CreateLogger(_loggedMessages));
+
+            await middleware.Invoke(httpContext);
+
+            Assert.Equal(2, _loggedMessages.Count);
+            Assert.Equal($"Information, CorrelationId: {initialId}", _loggedMessages[0]);
+            Assert.Equal($"Information, CorrelationSource: { _externalSource}", _loggedMessages[1]);
         }
 
         private ICorrelationContext CreateContext(CorrelationOptions options)
@@ -122,6 +160,11 @@ namespace Toolbox.WebApi.UnitTests.CorrelationId
                 serviceProviderMock.Setup(p => p.GetService(typeof(IOptions<CorrelationOptions>))).Returns(Options.Create(options));
 
             return serviceProviderMock.Object;
+        }
+
+        private ILogger<CorrelationIdMiddleware> CreateLogger(List<string> loggedMessages)
+        {
+            return new TestLogger<CorrelationIdMiddleware>(loggedMessages);
         }
 
         private RequestDelegate CreateRequestDelegate(Action action = null)

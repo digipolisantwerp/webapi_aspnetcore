@@ -25,7 +25,8 @@
   "frameworks": {
     "dnx451": {
       "dependencies": {
-        "Toolbox.WebApi": "1.2.0"
+        "Toolbox.WebApi": "1.2.0",
+        "Toolbox.ServiceAgents": "1.0.0"
       }
     }
   },

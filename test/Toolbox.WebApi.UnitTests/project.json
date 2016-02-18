@@ -15,7 +15,7 @@
     "Microsoft.AspNet.Mvc.Abstractions": "6.0.0-rc1-final",
     "Microsoft.AspNet.Mvc.Formatters.Json": "6.0.0-rc1-final",
     "Microsoft.Extensions.DependencyInjection": "1.0.0-rc1-final",
-    "Microsoft.Net.Http": "2.2.22"
+    "System.Net.Http": "4.0.0"
   },
     "commands": {
         "test": "xunit.runner.dnx"

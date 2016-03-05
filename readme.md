@@ -15,6 +15,8 @@ The WebApi Toolbox offers some functionality that can be used in ASP.NET Core 1.
 
 - [Installation](#installation)
 - [ActionOverloading](#actionoverloading)
+- [ActionFilters](#actionfilters)
+  - [ValidateModelState](#validatemodelstate)
 - [RootObject Formatters](#rootobject-formatters)
 - [Versioning](#versioning)
 - [Swagger extensions](#swagger-extensions)
@@ -60,6 +62,30 @@ With the ActionOverloading part of this toolbox you can add this functionality t
 services.AddMvc().AddActionOverloading();
 ```
      
+## ActionFilters  
+
+### ValidateModelState  
+When you write a lot of CUD operations one of the most recurring pieces of code is the validation of the ModelState in your controllers :  
+
+``` csharp
+if ( !ModelState.IsValid )
+{
+    // maybe do some logging
+    return new BadRequestObjectResult(ModelState);
+}
+```  
+
+By adding the ValidateModelState action filter attribute to your action, the validation is done automatically :
+
+``` csharp 
+[HttpPost]
+[ValidateModelState]
+public IActionResult Create(MyModel model)
+{
+    // no need to validate the ModelState here, it's already done before this code is executed
+}
+```
+
 ## RootObject Formatters
 
 ...ToDo...  

@@ -126,7 +126,7 @@ app.UseSwaggerUiRedirect("myUrl")
 ## Exception handling
 
 The toolbox provides a uniform way of exception handling.
-The best way to use this feature is to have you code throw exceptions that derive from the **BaseException** type defined in the [error toolbox](../errors_aspnetcore).
+The best way to use this feature is to have you code throw exceptions that derive from the **BaseException** type defined in the [error toolbox](../blob/master/errors_aspnetcore).
 
 If an exception is thrown in the application, the exception handler will create a response with the correct http status code and a meaningfull error object that the 
 api consumers can use to handle the error.
@@ -170,7 +170,7 @@ For other exceptions a simple error object is created, only exposing the excepti
 It is possible to map exception types to specific http status codes. 
 The default code is 500.  
 
-Some exception types that are defined in the [error toolbox](../errors_aspnetcore) have default mappings predefined. For these exceptions it is not nessessary to define the mappings in the configuration.
+Some exception types that are defined in the [error toolbox](../blob/master/errors_aspnetcore) have default mappings predefined. For these exceptions it is not nessessary to define the mappings in the configuration.
 
 Exception type              | Http status code
 ------------------ | ----------------------------------------------------------- | --------------------------------------

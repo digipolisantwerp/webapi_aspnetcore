@@ -46,7 +46,7 @@ namespace Toolbox.WebApi.Exceptions
             else
             {
                 error = new Error(Guid.NewGuid().ToString());
-                error.AddErrorMessage(new ErrorMessage("", $"Exception of type {exception.GetType()} occured. Check logs for more info."));
+                error.AddErrorMessage(new ErrorMessage("", $"Exception of type {exception.GetType()} occurred. Check logs for more info."));
             }
 
             context.Response.ContentType = "text/json";

@@ -128,7 +128,7 @@ app.UseSwaggerUiRedirect("myUrl")
 The toolbox provides a uniform way of exception handling.
 The best way to use this feature is to have you code throw exceptions that derive from the **BaseException** type defined in the [error toolbox](https://github.com/digipolisantwerp/errors_aspnetcore).
 
-If an exception is thrown in the application, the exception handler will create a response with the correct http status code and a meaningfull error object that the 
+If an exception is thrown in the application, the exception handler will create a response with the correct http status code and a meaningful error object that the 
 api consumers can use to handle the error.
 
 For exceptions that derive from **BaseException** the **Error** property is used as the response error object.
@@ -159,7 +159,7 @@ For other exceptions a simple error object is created, only exposing the excepti
   "Messages": [
     {
       "Key": "",
-      "Message": "Exception of type System.ArgumentNullException occured. Check logs for more info."
+      "Message": "Exception of type System.ArgumentNullException occurred. Check logs for more info."
     }
   ]
 }
@@ -170,7 +170,7 @@ For other exceptions a simple error object is created, only exposing the excepti
 It is possible to map exception types to specific http status codes. 
 The default code is 500.  
 
-Some exception types that are defined in the [error toolbox](https://github.com/digipolisantwerp/errors_aspnetcore) have default mappings predefined. For these exceptions it is not nessessary to define the mappings in the configuration.
+Some exception types that are defined in the [error toolbox](https://github.com/digipolisantwerp/errors_aspnetcore) have default mappings predefined. For these exceptions it is not necessary to define the mappings in the configuration.
 
 Exception type              | Http status code
 ------------------ | ----------------------------------------------------------- | --------------------------------------

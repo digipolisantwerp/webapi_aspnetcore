@@ -90,7 +90,7 @@ namespace Toolbox.WebApi.UnitTests.Exceptions
 
             var returnedError = GetResponseBodyAsError(_mockHttpResponse.Object);
             Assert.NotNull(returnedError);
-            Assert.Equal("Exception of type System.ArgumentNullException occured. Check logs for more info.", returnedError.Messages.First().Message);
+            Assert.Equal("Exception of type System.ArgumentNullException occurred. Check logs for more info.", returnedError.Messages.First().Message);
 
             Assert.StartsWith("Error", _logger.LoggedMessages[0]);
         }

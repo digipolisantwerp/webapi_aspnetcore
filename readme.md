@@ -20,6 +20,10 @@ The WebApi Toolbox offers some functionality that can be used in ASP.NET Core 1.
 - [RootObject Formatters](#rootobject-formatters)
 - [Versioning](#versioning)
 - [Swagger extensions](#swagger-extensions)
+- [Exception handling](#exception-handling)
+  - [Http status code mappings](#http-status-code-mappings)
+  - [Usage](#usage)
+  - [Logging](#logging)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -29,7 +33,7 @@ To add the toolbox to a project, you add the package to the project.json :
 
 ``` json 
 "dependencies": {
-    "Toolbox.WebApi":  "1.2.2"
+    "Toolbox.WebApi":  "1.3.0"
  }
 ``` 
 
@@ -118,3 +122,132 @@ app.UseSwaggerUiRedirect();
 app.UseSwaggerUi("myUrl");          // from SwashBuckle.SwaggerUi package
 app.UseSwaggerUiRedirect("myUrl") 
 ``` 
+
+## Exception handling
+
+The toolbox provides a uniform way of exception handling.
+The best way to use this feature is to have you code throw exceptions that derive from the **BaseException** type defined in the [error toolbox](../errors_aspnetcore).
+
+If an exception is thrown in the application, the exception handler will create a response with the correct http status code and a meaningfull error object that the 
+api consumers can use to handle the error.
+
+For exceptions that derive from **BaseException** the **Error** property is used as the response error object.
+``` javascript
+{
+  "Id": "e4506b3e-1066-4f8e-bae2-336a0215e1a3",
+  "Messages": [
+    {
+      "Key": "125",
+      "Message": "VAT number invalid"
+    },
+    {
+      "Key": "356",
+      "Message": "Address invalid"
+    },
+    {
+      "Key": "698",
+      "Message": "Email invalid"
+    }
+  ]
+}
+```
+
+For other exceptions a simple error object is created, only exposing the exception type.
+``` javascript
+{
+  "Id": "e4506b3e-1066-4f8e-bae2-336a0215e1a3",
+  "Messages": [
+    {
+      "Key": "",
+      "Message": "Exception of type System.ArgumentNullException occured. Check logs for more info."
+    }
+  ]
+}
+```
+
+### Http status code mappings
+
+It is possible to map exception types to specific http status codes. 
+The default code is 500.  
+
+Some exception types that are defined in the [error toolbox](../errors_aspnetcore) have default mappings predefined. For these exceptions it is not nessessary to define the mappings in the configuration.
+
+Exception type              | Http status code
+------------------ | ----------------------------------------------------------- | --------------------------------------
+NotFoundException              | 404 
+ValidationException | 400
+UnauthorizedException | 403  
+
+Important note!
+The default mappings will be overridden if you specify them in the mappings setup.
+
+### Usage
+
+To enable exception handling, call the **UseExceptionHandling** method on the **IApplicationBuilder** object in the **Configure** method of the **Startup** class.
+
+``` csharp
+    app.UseExceptionHandling(mappings =>
+    {
+    });
+``` 
+
+To specify the mappings of exception types to http status codes you can use the **HttpStatusCodeMappings** object that is passed to the setupAction of the **UseExceptionHandling** method.
+
+To add a new mapping, call the Add method and pass the exception type the http status code.
+
+``` csharp
+    app.UseExceptionHandling(mappings =>
+    {
+        mappings.Add(typeof(NotFoundException), 404);
+    });
+``` 
+
+You can also use a generic method to specify the exception type.
+
+``` csharp
+    mappings.Add<NotFoundException>(404);
+``` 
+
+If you have a lot of mappings to configure and you don't want to place the code in the **Startup** code file you can use the **AddRange** method that accepts a mappings collection that will be added.
+
+
+Define a collection of mappings somewhere:
+``` csharp
+    var customMappings = new Dictionary<Type, int>()
+    {
+        { typeof(NotFoundException), 404 },
+        { typeof(ValidationException), 500 },
+        { typeof(UnauthorizedException), 401 }
+    };
+``` 
+
+and add it in the **setupAction**
+``` csharp
+    app.UseExceptionHandling(mappings =>
+    {
+        mappings.AddRange(customMappings);
+    });
+``` 
+
+### Logging
+
+The exception handler will also log the exception.
+If the http status code is in range of 4xx the exception will be logged with a **Debug** level.
+Exceptions with a status code in range 5xx will be logged as **Error** level.
+
+The logged message is a json with following structure:
+
+``` javascript
+{
+	"HttpStatusCode" : 404,
+	"Error" : {
+		//The Error object serialized as Json
+	},
+	"Exception" : {
+		//The exception object serialized as Json
+	}
+}
+```
+
+For exceptions that do not derive from **BaseException** the **Error** property will be empty. 
+

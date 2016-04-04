@@ -11,3 +11,7 @@
 ## 1.2.2
 
 - fix InputFormatter
+
+## 1.3.0
+
+- added exception handling

@@ -111,6 +111,20 @@ namespace Toolbox.WebApi.UnitTests.Exceptions
             Assert.StartsWith("Debug", _logger.LoggedMessages[0]);
         }
 
+        [Fact]
+        private async Task LogsExceptionsOccurredInHandler()
+        {
+            var mappings = new HttpStatusCodeMappings();
+            var handler = new ExceptionHandler(mappings, _logger);
+
+            var mockHttpContext = new Mock<HttpContext>();
+            mockHttpContext.SetupGet(c => c.Features).Throws<Exception>();
+
+            await handler.HandleAsync(mockHttpContext.Object);
+
+            Assert.StartsWith("Error", _logger.LoggedMessages[0]);
+        }
+
         private HttpContext CreateMockHttpContext(Exception exception)
         {
             _mockHttpResponse = new Mock<HttpResponse>();

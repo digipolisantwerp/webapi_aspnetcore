@@ -183,12 +183,15 @@ The default mappings will be overridden if you specify them in the mappings setu
 
 ### Usage
 
-To enable exception handling, call the **UseExceptionHandling** method on the **IApplicationBuilder** object in the **Configure** method of the **Startup** class.
+To enable exception handling, call the **UseExceptionHandling** method on the **IApplicationBuilder** object in the **Configure** method of the **Startup** class.  
+This must be the first call on the **IApplicationBuilder** object in the **Configure** method!
 
 ``` csharp
     app.UseExceptionHandling(mappings =>
     {
     });
+    
+    // !! other calls on the app object must be placed after the UseExceptionHandling call !!
 ``` 
 
 To specify the mappings of exception types to http status codes you can use the **HttpStatusCodeMappings** object that is passed to the setupAction of the **UseExceptionHandling** method.

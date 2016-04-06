@@ -26,35 +26,42 @@ namespace Toolbox.WebApi.Exceptions
 
         public async Task HandleAsync(HttpContext context)
         {
-            var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
-            if (exceptionHandlerFeature == null)
-                return;
-
-            var exception = exceptionHandlerFeature.Error;
-            var exceptionType = exception.GetType();
-
-            if (_mappings.ContainsKey(exceptionType))
-                context.Response.StatusCode = _mappings.GetStatusCode(exceptionType);
-
-            Error error = null;
-
-            if (exception is BaseException)
+            try
             {
-                var baseException = exception as BaseException;
-                error = baseException.Error;
+                var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
+                if (exceptionHandlerFeature == null)
+                    return;
+
+                var exception = exceptionHandlerFeature.Error;
+                var exceptionType = exception.GetType();
+
+                if (_mappings.ContainsKey(exceptionType))
+                    context.Response.StatusCode = _mappings.GetStatusCode(exceptionType);
+
+                Error error = null;
+
+                if (exception is BaseException)
+                {
+                    var baseException = exception as BaseException;
+                    error = baseException.Error;
+                }
+                else
+                {
+                    error = new Error(Guid.NewGuid().ToString());
+                    error.AddErrorMessage(new ErrorMessage("", $"Exception of type {exception.GetType()} occurred. Check logs for more info."));
+                }
+
+                context.Response.ContentType = "text/json";
+
+                var responseBody = JsonConvert.SerializeObject(error);
+                await context.Response.WriteAsync(responseBody);
+
+                LogException(context.Response.StatusCode, exception);
             }
-            else
+            catch (Exception ex)
             {
-                error = new Error(Guid.NewGuid().ToString());
-                error.AddErrorMessage(new ErrorMessage("", $"Exception of type {exception.GetType()} occurred. Check logs for more info."));
+                _logger.LogError("Exception occurred in the exception handler.", ex);
             }
-
-            context.Response.ContentType = "text/json";
-
-            var responseBody = JsonConvert.SerializeObject(error);
-            await context.Response.WriteAsync(responseBody);
-
-            LogException(context.Response.StatusCode, exception);
         }
         
         private void LogException(int httpStatusCode, Exception exception)

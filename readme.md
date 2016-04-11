@@ -90,6 +90,28 @@ public IActionResult Create(MyModel model)
 }
 ```
 
+In case of an invalid ModelState a response with http status 400 (bad Request) is returned with an object of type **Error** containing the details of the validation failure.
+
+``` json
+{
+  "Id": "c0fcec1c-07e0-4dd0-baf0-e6bd57da8fce",
+  "Messages": [
+    {
+      "Key": "FirstName",
+      "Message": "The field FirstName must be a string or array type with a minimum length of '2'."
+    },
+    {
+      "Key": "LastName",
+      "Message": "The LastName field is required."
+    },
+    {
+      "Key": "Email",
+      "Message": "The Email field is not a valid e-mail address."
+    }
+  ]
+}
+```
+
 ## RootObject Formatters
 
 ...ToDo...  

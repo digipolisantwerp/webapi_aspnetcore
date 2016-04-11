@@ -15,3 +15,11 @@
 ## 1.3.0
 
 - added exception handling
+
+## 1.3.1
+
+- added logging of exception occurred during exception handling
+
+## 1.3.2
+
+- changed response content for ValidateModelState attribute to Error type

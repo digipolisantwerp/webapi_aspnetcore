@@ -206,14 +206,20 @@ The default mappings will be overridden if you specify them in the mappings setu
 ### Usage
 
 To enable exception handling, call the **UseExceptionHandling** method on the **IApplicationBuilder** object in the **Configure** method of the **Startup** class.  
-This must be the first call on the **IApplicationBuilder** object in the **Configure** method!
+
+Since the exception handler is a middleware it should be positioned as high as possible in the request pipeline in order to catch all exceptions from other middleware.
+So it is advised to place it as the first call on the **IApplicationBuilder** object in the **Configure** method.
+Only when enabling **Cors** via the **app.UseCors** method, that method must be placed before the **UseExceptionHanlding** method.
 
 ``` csharp
+    //Only cors placed above the ExceptionHandling
+    app.UseCors();
+
     app.UseExceptionHandling(mappings =>
     {
     });
     
-    // !! other calls on the app object must be placed after the UseExceptionHandling call !!
+    // all other middleware
 ``` 
 
 To specify the mappings of exception types to http status codes you can use the **HttpStatusCodeMappings** object that is passed to the setupAction of the **UseExceptionHandling** method.

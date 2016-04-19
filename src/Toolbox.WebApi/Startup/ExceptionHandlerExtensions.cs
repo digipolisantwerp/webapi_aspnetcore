@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNet.Builder;
-using Microsoft.Extensions.Logging;
+﻿using System;
+using Microsoft.AspNet.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Toolbox.WebApi.Exceptions;
 
-namespace Toolbox.WebApi.Startup
+namespace Toolbox.WebApi
 {
     public static class ExceptionHandlerExtensions
     {

@@ -31,3 +31,7 @@
 ## 1.4.1
 
 - updated version info in readme
+
+## 1.4.2
+
+- Bugfix set response content type to application/json

@@ -33,7 +33,7 @@ To add the toolbox to a project, you add the package to the project.json :
 
 ``` json 
 "dependencies": {
-    "Toolbox.WebApi":  "1.4.1"
+    "Toolbox.WebApi":  "1.4.2"
  }
 ``` 
 

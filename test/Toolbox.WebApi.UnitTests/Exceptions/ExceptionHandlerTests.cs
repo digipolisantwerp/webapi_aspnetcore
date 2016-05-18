@@ -46,7 +46,7 @@ namespace Toolbox.WebApi.UnitTests.Exceptions
             await handler.HandleAsync(mockHttpContext);
 
             Assert.Equal(404, _mockHttpResponse.Object.StatusCode);
-            Assert.Equal("text/json", _mockHttpResponse.Object.ContentType);
+            Assert.Equal("application/json", _mockHttpResponse.Object.ContentType);
 
             var serializedError = JsonConvert.SerializeObject(exception.Error);
             Assert.Equal(serializedError, GetResponseBodyAsString(_mockHttpResponse.Object));
@@ -67,7 +67,7 @@ namespace Toolbox.WebApi.UnitTests.Exceptions
             await handler.HandleAsync(mockHttpContext);
 
             Assert.Equal(500, _mockHttpResponse.Object.StatusCode);
-            Assert.Equal("text/json", _mockHttpResponse.Object.ContentType);
+            Assert.Equal("application/json", _mockHttpResponse.Object.ContentType);
 
             var serializedError = JsonConvert.SerializeObject(exception.Error);
             Assert.Equal(serializedError, GetResponseBodyAsString(_mockHttpResponse.Object));

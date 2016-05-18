@@ -51,7 +51,7 @@ namespace Toolbox.WebApi.Exceptions
                     error.AddErrorMessage(new ErrorMessage("", $"Exception of type {exception.GetType()} occurred. Check logs for more info."));
                 }
 
-                context.Response.ContentType = "text/json";
+                context.Response.ContentType = "application/json";
 
                 var responseBody = JsonConvert.SerializeObject(error);
                 await context.Response.WriteAsync(responseBody);
